@@ -1,67 +1,142 @@
 # Appium Notes Test Automation
 
-Mobile UI test automation suite for the [Fossify Notes](https://github.com/FossifyOrg/Notes) Android app, built using the Page Object Model (POM) design pattern.
+A mobile UI test automation framework for the **Fossify Notes Android application**, built using **Appium**, **Java**, and the **Page Object Model (POM)** design pattern. The framework is designed to provide maintainable, scalable, and reusable automated tests for validating core application functionality.
 
-## Tech Stack
+---
 
-- **Java 17**
-- **Appium** (UiAutomator2 driver) — mobile automation
-- **Selenium WebDriver** — underlying driver protocol
-- **TestNG** — test runner and assertions
-- **Maven** — build and dependency management
+## Overview
+
+This project automates end-to-end user interactions within the Fossify Notes application, covering key functionalities such as note creation, editing, deletion, search, and navigation.
+
+By implementing the **Page Object Model (POM)** architecture, UI element locators and screen interactions are separated from test logic, improving maintainability and reducing duplication across test cases.
+
+---
+
+## Technology Stack
+
+* **Java 17**
+* **Appium (UiAutomator2 Driver)** – Mobile automation framework
+* **Selenium WebDriver** – Underlying automation protocol
+* **TestNG** – Test execution and assertions
+* **Maven** – Dependency management and build automation
+
+---
 
 ## Project Structure
 
-```
+```text
 src/test/java/appiumTest/
 ├── base/
-│   └── BaseTest.java          # Driver setup/teardown, shared across all tests
+│   └── BaseTest.java
+│       └── Driver initialization, configuration, and teardown
+│
 ├── pages/
-│   ├── MainScreenPage.java    # Notes list screen interactions
-│   ├── NoteEditorPage.java    # Note creation/editing screen interactions
-│   └── SettingsPage.java      # Settings screen interactions
+│   ├── MainScreenPage.java
+│   │   └── Notes list screen interactions
+│   ├── NoteEditorPage.java
+│   │   └── Note creation and editing interactions
+│   └── SettingsPage.java
+│       └── Settings screen interactions
+│
 └── tests/
-    ├── SmokeTests.java         # App launch and basic UI presence
-    ├── NoteCreationTests.java  # Creating single/multiple notes
-    ├── NoteEditingTests.java   # Editing and verifying persistence
-    ├── NoteDeletionTests.java  # Deleting notes
-    ├── SearchTests.java        # Searching existing/non-existing notes
-    └── NavigationTests.java    # Navigating to/from Settings
+    ├── SmokeTests.java
+    ├── NoteCreationTests.java
+    ├── NoteEditingTests.java
+    ├── NoteDeletionTests.java
+    ├── SearchTests.java
+    └── NavigationTests.java
 ```
 
-The Page Object Model keeps element locators and interaction logic in the `pages` package, separate from test assertions in the `tests` package, so a UI change only requires updating one page object instead of every test that touches that screen.
+### Design Pattern
+
+The framework follows the **Page Object Model (POM)** pattern:
+
+* UI element locators are maintained within page classes.
+* Business actions and screen interactions are encapsulated in page objects.
+* Test classes focus solely on validation and assertions.
+* UI changes require updates in a single location, reducing maintenance effort.
+
+---
 
 ## Test Coverage
 
-| Area | Scenarios |
-|---|---|
-| Smoke | App launches, FAB button visible, empty state on fresh install |
-| Note creation | Single note, multiple notes |
-| Note editing | Edit and verify content persists after reopening |
-| Note deletion | Delete a note and confirm list updates |
-| Search | Search returns matches / returns empty for no matches |
-| Navigation | Open Settings, navigate back to main screen |
+| Module        | Test Scenarios                                                                      |
+| ------------- | ----------------------------------------------------------------------------------- |
+| Smoke Tests   | Application launch, Floating Action Button (FAB) visibility, empty-state validation |
+| Note Creation | Create a single note, create multiple notes                                         |
+| Note Editing  | Modify note content and verify persistence after reopening                          |
+| Note Deletion | Delete notes and validate list updates                                              |
+| Search        | Search existing notes and validate no-result scenarios                              |
+| Navigation    | Navigate to Settings and return to the main screen                                  |
+
+---
+
+## Prerequisites
+
+Before running the test suite, ensure the following are installed:
+
+* Java 17+
+* Maven
+* Android Studio
+* Android Emulator or Physical Android Device
+* Appium Server
+
+---
 
 ## Running the Tests
 
-1. Start an Android emulator (project is configured for an AVD named `My Virtual Emulator`) or connect a physical device.
-2. Start the Appium server: `appium`
-3. Run the suite from the project root:
-   ```
-   mvn test
-   ```
-   Or, in Eclipse, right-click `testng.xml` → **Run As → TestNG Suite**.
+### 1. Start an Android Device
 
-## Known Limitations / Next Steps
+Launch an Android Emulator (configured for **My Virtual Emulator**) or connect a physical Android device.
 
-- Element locators in the `pages` classes are currently placeholders based on common Android UI patterns. They need to be replaced with real `resource-id`s captured via [Appium Inspector](https://github.com/appium/appium-inspector) against the actual Fossify Notes app.
-- `NoteDeletionTests` has TODOs for the delete menu item and confirmation dialog, since the exact UI flow depends on the app's long-press menu, which hasn't been inspected yet.
-- Planned: CI integration (GitHub Actions) to run the suite against an emulator on every push.
+### 2. Start Appium Server
+
+```bash
+appium
+```
+
+### 3. Execute the Test Suite
+
+From the project root directory:
+
+```bash
+mvn test
+```
+
+Alternatively, from Eclipse:
+
+```text
+Right-click testng.xml
+→ Run As
+→ TestNG Suite
+```
+
+---
+
+## Known Limitations
+
+* Some element locators currently use placeholder values based on common Android UI patterns and should be replaced with actual resource IDs obtained using **Appium Inspector**.
+* Certain deletion workflow locators and actions are marked as TODO items until the application's exact UI behavior is fully inspected and mapped.
+
+---
+
+## Future Enhancements
+
+* GitHub Actions CI/CD integration
+* Automated execution on Android emulators during pull requests and pushes
+* Enhanced reporting using Extent Reports or Allure Reports
+* Data-driven testing support
+* Cross-device and cross-version Android execution
+
+---
 
 ## Author
 
-Antonios Gerges Hakim Eskandar
+**Antonios Gerges Hakim Eskandar**
 Software QA/QC Engineer
-📧 antoniosgerges94@gmail.com
-🔗 linkedin.com/in/antonios-eskandar
-🐙 github.com/antoniosgerges94
+
+📧 Email: [antoniosgerges94@gmail.com](mailto:antoniosgerges94@gmail.com)
+
+🔗 LinkedIn: https://linkedin.com/in/antonios-eskandar
+
+🐙 GitHub: https://github.com/antoniosgerges94
