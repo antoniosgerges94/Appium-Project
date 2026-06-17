@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="FossifyNotesSuite" verbose="1">
+    <test name="AllTests">
+        <classes>
+            <class name="appiumTest.tests.SmokeTests"/>
+            <class name="appiumTest.tests.NoteCreationTests"/>
+            <class name="appiumTest.tests.NoteEditingTests"/>
+            <class name="appiumTest.tests.NoteDeletionTests"/>
+            <class name="appiumTest.tests.SearchTests"/>
+            <class name="appiumTest.tests.NavigationTests"/>
+        </classes>
+    </test>
+</suite>
