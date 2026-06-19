@@ -26,10 +26,13 @@ public class NoteCreationTests extends BaseTest {
         MainScreenPage mainScreen = new MainScreenPage(driver);
 
         for (int i = 1; i <= 3; i++) {
+            // Wait for FAB to be ready before tapping (avoids race condition between iterations)
             mainScreen.tapAddNote();
             NoteEditorPage editor = new NoteEditorPage(driver);
             editor.typeNoteContent("Note number " + i);
             editor.goBack();
+            // isFabDisplayed() uses WebDriverWait internally, so it acts as a sync point
+            mainScreen.isFabDisplayed();
         }
 
         Assert.assertEquals(mainScreen.getNoteCount(), 3, "Three notes should appear in the list");

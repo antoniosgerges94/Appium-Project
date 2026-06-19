@@ -1,5 +1,6 @@
 package appiumTest.base;
 
+import java.io.File;
 import java.net.URL;
 import java.time.Duration;
 
@@ -15,15 +16,19 @@ public class BaseTest {
 
     @BeforeMethod
     public void setUp() throws Exception {
+        // Relative path — works on any machine that has the APK in TestApp/
+        File apkFile = new File("TestApp/org.fossify.notes_13.apk");
+
         UiAutomator2Options options = new UiAutomator2Options();
         options.setDeviceName("My Virtual Emulator");
-        options.setApp("C:\\Users\\Antonios Gerges\\eclipse-workspace\\Appium-Project\\org.fossify.notes_13.apk");
+        options.setApp(apkFile.getAbsolutePath());
         options.setAppPackage("org.fossify.notes");
-        options.setAppActivity("org.fossify.notes.activities.SplashActivity.Green");
-        options.setFullReset(true); // start fresh every test - clean state
+        options.setAppActivity("org.fossify.notes.activities.SplashActivity"); // fixed: removed ".Green"
+        options.setNoReset(false);   // clears app data without full reinstall (faster than fullReset)
+        options.setFullReset(false); // fullReset=true is very slow; use only in @BeforeSuite if needed
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        // Do NOT mix implicitlyWait with explicit WebDriverWait — removed from here
     }
 
     @AfterMethod

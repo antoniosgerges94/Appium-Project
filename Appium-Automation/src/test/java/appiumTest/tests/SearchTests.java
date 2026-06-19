@@ -1,6 +1,5 @@
 package appiumTest.tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -14,15 +13,15 @@ public class SearchTests extends BaseTest {
     public void searchForExistingNote() {
         MainScreenPage mainScreen = new MainScreenPage(driver);
 
-        // create a note
+        // Create a note first
         mainScreen.tapAddNote();
         NoteEditorPage editor = new NoteEditorPage(driver);
         editor.typeNoteContent("Shopping list groceries");
         editor.goBack();
 
-        // search for it
+        // Search via page object (no raw driver calls in test class)
         mainScreen.tapSearchIcon();
-        driver.findElement(By.className("android.widget.EditText")).sendKeys("Shopping");
+        mainScreen.typeInSearchField("Shopping");
 
         Assert.assertTrue(mainScreen.getNoteCount() >= 1, "Search should return matching note");
     }
@@ -32,7 +31,7 @@ public class SearchTests extends BaseTest {
         MainScreenPage mainScreen = new MainScreenPage(driver);
 
         mainScreen.tapSearchIcon();
-        driver.findElement(By.className("android.widget.EditText")).sendKeys("NonExistentTermXYZ");
+        mainScreen.typeInSearchField("NonExistentTermXYZ");
 
         Assert.assertEquals(mainScreen.getNoteCount(), 0, "Search with no matches should show empty results");
     }

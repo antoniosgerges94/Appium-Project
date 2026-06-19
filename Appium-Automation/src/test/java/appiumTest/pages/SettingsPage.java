@@ -12,7 +12,7 @@ public class SettingsPage {
     private AndroidDriver driver;
     private WebDriverWait wait;
 
-    // PLACEHOLDER locators - replace using Appium Inspector
+    // PLACEHOLDER locator — verify with Appium Inspector
     private By settingsTitle = By.xpath("//android.widget.TextView[@text='Settings']");
 
     public SettingsPage(AndroidDriver driver) {

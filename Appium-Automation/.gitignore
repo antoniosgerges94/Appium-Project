@@ -1,4 +1,4 @@
-# Maven
+# Maven build output
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -23,5 +23,5 @@ Thumbs.db
 # Logs
 *.log
 
-# Test output
+# TestNG output
 test-output/

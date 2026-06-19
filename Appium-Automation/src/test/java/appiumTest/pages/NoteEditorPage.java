@@ -12,10 +12,9 @@ public class NoteEditorPage {
     private AndroidDriver driver;
     private WebDriverWait wait;
 
-    // PLACEHOLDER locators - replace using Appium Inspector
+    // PLACEHOLDER locators — verify with Appium Inspector for your APK version
     private By noteContentField = By.id("org.fossify.notes:id/notes_view");
-    private By saveButton = By.id("org.fossify.notes:id/menu_save");
-    private By backButton = By.xpath("//android.widget.ImageButton[@content-desc='Navigate up']");
+    private By saveButton       = By.id("org.fossify.notes:id/menu_save");
 
     public NoteEditorPage(AndroidDriver driver) {
         this.driver = driver;
@@ -42,7 +41,7 @@ public class NoteEditorPage {
         try {
             wait.until(d -> d.findElement(saveButton)).click();
         } catch (Exception e) {
-            // Some versions auto-save on back press
+            // Some app versions auto-save on back press
             goBack();
         }
     }
